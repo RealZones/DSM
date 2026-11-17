@@ -65,10 +65,10 @@ jobs:
         id: hash
         shell: bash
         run: |
-          JAR="build/libs/dragsim-market-mod-${{ steps.info.outputs.version }}.jar"
-          [[ -f "$JAR" ]] || { echo "::error::$JAR was not built"; exit 1; }
+          # build/libs/dsm-<version>.jar is the releaseJar task's output: the same bytes on any OS.
           OUT="dsm-${{ steps.info.outputs.version }}.jar"
-          cp "$JAR" "$OUT"
+          [[ -f "build/libs/$OUT" ]] || { echo "::error::build/libs/$OUT was not built"; exit 1; }
+          cp "build/libs/$OUT" "$OUT"
           sha256sum "$OUT" > "$OUT.sha256"
           echo "jar=mod/$OUT" >> "$GITHUB_OUTPUT"
           echo "sha=$(cut -d' ' -f1 "$OUT.sha256")" >> "$GITHUB_OUTPUT"
@@ -87,7 +87,7 @@ jobs:
 
             Check it: `sha256sum -c dsm-${{ steps.info.outputs.version }}.jar.sha256` (Linux/macOS) or
             `Get-FileHash dsm-${{ steps.info.outputs.version }}.jar` (Windows PowerShell) and compare.
-            Or build this commit yourself with JDK 25 (`cd mod && ./gradlew build`): the jar comes out byte for byte the same.
+            Or build this commit yourself with JDK 25 (`cd mod && ./gradlew build`): `build/libs/dsm-<version>.jar` comes out byte for byte the same, on Windows, macOS or Linux.
           files: |
             ${{ steps.hash.outputs.jar }}
             ${{ steps.hash.outputs.jar }}.sha256

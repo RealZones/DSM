@@ -16,4 +16,4 @@ Trade uploads are off by default. `/market trades on` opts in to sending complet
 
 The link screen proves the signed-in Minecraft account to Mojang. The market receives the proof result and issues a separate credential, stored in this instance's `config/dragsim-market/account.properties`. Keep that file private. A new `/market link` renews the credential and issues a new browser code.
 
-Build from this directory using `./gradlew.bat build` on Windows or `./gradlew build` on other platforms. The JAR is in `build/libs/`, byte for byte the same as the release built from the same commit.
+Build from this directory using `./gradlew.bat build` on Windows or `./gradlew build` on other platforms. The release jar is `build/libs/dsm-<version>.jar`, byte for byte the same as the release built from the same commit.

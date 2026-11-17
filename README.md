@@ -17,8 +17,8 @@ and publishes the jar's SHA-256, so you can check what you run:
 - **Against the hash:** `sha256sum -c dsm-<version>.jar.sha256`, or on Windows
   `Get-FileHash dsm-<version>.jar` and compare with the release.
 - **Against the code:** build the named commit yourself with JDK 25
-  (`cd mod && ./gradlew build`). The build is reproducible, so the jar comes out byte for byte
-  the same as the release.
+  (`cd mod && ./gradlew build`). The build is reproducible on any OS, so
+  `mod/build/libs/dsm-<version>.jar` comes out byte for byte the same as the release.
 
 Requires Minecraft 26.1.2, Fabric Loader 0.19.2 or newer, Fabric API and Java 25. How linking and
 trade uploads work is in [`mod/README.md`](mod/README.md).

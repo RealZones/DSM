@@ -23,6 +23,44 @@ tasks.withType(AbstractArchiveTask).configureEach {
     reproducibleFileOrder = true
 }
 
+// The release jar, dsm-<version>.jar: the built jar rewritten so its bytes are the same on any
+// machine. The files inside already matched, but the zip itself did not: Loom's writer adds a
+// timestamp field whose kind depends on the OS (NTFS on Windows, Unix-style on Linux), which made
+// the first release's SHA-256 differ from a Windows build. So every entry is written again stored
+// (no compression, which also takes zlib versions out of it), with a fixed local date and no extra
+// fields, in the original order.
+def releaseJar = layout.buildDirectory.file("libs/dsm-${version}.jar")
+tasks.register('releaseJar') {
+    dependsOn tasks.named('jar')
+    inputs.file(tasks.named('jar').flatMap { it.archiveFile })
+    outputs.file(releaseJar)
+    doLast {
+        def source = new java.util.zip.ZipFile(tasks.named('jar').get().archiveFile.get().asFile)
+        def target = new java.util.zip.ZipOutputStream(new FileOutputStream(releaseJar.get().asFile))
+        try {
+            source.entries().toList().each { e ->
+                byte[] data = source.getInputStream(e).bytes
+                def entry = new java.util.zip.ZipEntry(e.name)
+                entry.method = java.util.zip.ZipEntry.STORED
+                entry.size = data.length
+                entry.compressedSize = data.length
+                def crc = new java.util.zip.CRC32()
+                crc.update(data)
+                entry.crc = crc.value
+                // A local date: no time zone conversion, and no extended timestamp field.
+                entry.timeLocal = java.time.LocalDateTime.of(1980, 2, 1, 0, 0)
+                target.putNextEntry(entry)
+                target.write(data)
+                target.closeEntry()
+            }
+        } finally {
+            target.close()
+            source.close()
+        }
+    }
+}
+tasks.named('build') { dependsOn 'releaseJar' }
+
 tasks.withType(JavaCompile).configureEach {
     options.release = 25
 }
