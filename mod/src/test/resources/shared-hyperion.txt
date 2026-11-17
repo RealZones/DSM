@@ -1,0 +1,36 @@
+§dArcane Hyperion §6✪§6✪§6✪§6✪§6✪
+§6 §7Damage: §6+327.5 §e(+35) §6(+32.5) §8(+1,064.38)
+§c❁ §7Strength: §c+198.75 §e(+30) §6(+18.75) §8(+645.94)
+§b §7Intelligence: §b+1425 §9(+300) §6(+125) §8(+4,631.25)
+§c๑ §7Ability Damage: §c+6% §9(+6%) §8(+6%)
+§c⫽ §7Ferocity: §c+33.75 §6(+3.75) §8(+33.75)
+
+§7Gain +10 Intelligence per Combat level while held.
+
+Astral RiftSNEAK RIGHT CLICK
+§7Tear a rift at the block you look
+§7at, up to §a20 §7blocks away. After
+§a1s §7it collapses, pulling every enemy
+§7within §a8 §7blocks in and dealing
+§c268,687,742.16 §7damage. Bosses are hit
+§7but not pulled.
+§8Mana Cost: §3600
+§8Cooldown: §a5s
+
+Wither ImpactRIGHT CLICK
+§7Teleport §a10 blocks §7ahead of
+§7you. Then implode dealing
+§c67,171,935.54 §7damage to enemies within a
+§a9 §7block radius. Also grants a
+§7Wither Shield: absorption equal to
+§a10% §7of your max health and §a10%
+§7less damage taken for §a5s§7.
+§8Mana Cost: §3200
+
+Arcane EdgePASSIVE
+§7Melee hits deal §a+1% §7damage for
+§7every §b25 ✎ Intelligence§7. §8(§a+168%§8)
+
+§c☒ Locked §8(/lockitem)
+
+0 MYTHIC 0DUNGEON SWORD

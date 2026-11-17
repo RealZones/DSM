@@ -1,0 +1,6 @@
+# LF everywhere, so a Windows checkout and GitHub's Linux build put the same bytes in the jar
+# and anyone who rebuilds a release gets its published SHA-256.
+* text=auto eol=lf
+*.jar binary
+*.png binary
+*.bat text eol=crlf

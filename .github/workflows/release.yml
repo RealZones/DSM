@@ -1,0 +1,93 @@
+name: Release
+
+# One push to the default branch that touches the mod = one GitHub release of the DSM mod, built
+# here from exactly that commit. The release names the commit and publishes the jar's SHA-256, so
+# anyone can check a jar three ways: against the hash, against the commit, or by building the
+# commit themselves (the build is reproducible: same commit, same JDK major, same bytes).
+#
+# A push that only changes the server, the site, the docs or this workflow is not a release:
+# nobody needs a new jar for it.
+
+on:
+  push:
+    branches:
+      - '**'
+    paths:
+      - 'mod/**'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mod
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # 25 because mod/build.gradle pins it (options.release = 25); anything lower fails to compile.
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Read version and commit
+        id: info
+        shell: bash
+        run: |
+          VERSION=$(grep "^version = " build.gradle | cut -d"'" -f2)
+          [[ -z "$VERSION" ]] && { echo "::error::version not found in mod/build.gradle"; exit 1; }
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+          echo "url=https://github.com/${GITHUB_REPOSITORY}/commit/$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          {
+            echo "msg<<EOF"
+            git log -1 --pretty=%B
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      # The repo may come from Windows, where the executable bit is not always recorded.
+      # `build` also runs the mod's checks, so a failing check stops the release.
+      - name: Build
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build
+
+      - name: Hash the jar
+        id: hash
+        shell: bash
+        run: |
+          JAR="build/libs/dragsim-market-mod-${{ steps.info.outputs.version }}.jar"
+          [[ -f "$JAR" ]] || { echo "::error::$JAR was not built"; exit 1; }
+          OUT="dsm-${{ steps.info.outputs.version }}.jar"
+          cp "$JAR" "$OUT"
+          sha256sum "$OUT" > "$OUT.sha256"
+          echo "jar=mod/$OUT" >> "$GITHUB_OUTPUT"
+          echo "sha=$(cut -d' ' -f1 "$OUT.sha256")" >> "$GITHUB_OUTPUT"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: mod-${{ steps.info.outputs.version }}-${{ steps.info.outputs.short }}
+          name: DSM mod ${{ steps.info.outputs.version }}
+          body: |
+            ${{ steps.info.outputs.msg }}
+
+            Built by GitHub from commit [`${{ steps.info.outputs.short }}`](${{ steps.info.outputs.url }}).
+
+            **SHA-256** `${{ steps.hash.outputs.sha }}`
+
+            Check it: `sha256sum -c dsm-${{ steps.info.outputs.version }}.jar.sha256` (Linux/macOS) or
+            `Get-FileHash dsm-${{ steps.info.outputs.version }}.jar` (Windows PowerShell) and compare.
+            Or build this commit yourself with JDK 25 (`cd mod && ./gradlew build`): the jar comes out byte for byte the same.
+          files: |
+            ${{ steps.hash.outputs.jar }}
+            ${{ steps.hash.outputs.jar }}.sha256

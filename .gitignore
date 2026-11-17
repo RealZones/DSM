@@ -1,0 +1,18 @@
+# Build output
+mod/build/
+mod/.gradle/
+mod/run/
+*.class
+__pycache__/
+*.pyc
+
+# Never in this repo: the live market's data and secrets. data/ holds the price history, trades,
+# accounts and links; the key and env files open the owner's site.
+server/data/*
+!server/data/recipe_overrides.json
+*.key
+.env
+*.db
+*.db-wal
+*.db-shm
+*.sqlite3

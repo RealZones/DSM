@@ -1,0 +1,301 @@
+{
+  "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+  "recipes": {
+    "astraea": [
+      {
+        "yield": 1,
+        "need": {
+          "jolly_pink_rock": 6,
+          "giants_core": 1,
+          "necron_blade": 1,
+          "warden_core": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "craft",
+        "text": "craft: 6× Jolly Pink Rock, 1× Giant's Core, 1× Necron's Blade (Unrefined), 1× Warden Core",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "astraea-9548b1210e"
+      },
+      {
+        "yield": 1,
+        "need": {
+          "jolly_pink_rock": 8,
+          "valkyrie": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "conversion",
+        "text": "conversion: 8× Jolly Pink Rock, 1× Valkyrie",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "astraea-ebccc5a10c",
+        "carrier": "valkyrie"
+      },
+      {
+        "yield": 1,
+        "need": {
+          "jolly_pink_rock": 8,
+          "scylla": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "conversion",
+        "text": "conversion: 8× Jolly Pink Rock, 1× Scylla",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "astraea-baf5ce19ef",
+        "carrier": "scylla"
+      },
+      {
+        "yield": 1,
+        "need": {
+          "jolly_pink_rock": 8,
+          "hyperion": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "conversion",
+        "text": "conversion: 8× Jolly Pink Rock, 1× Hyperion",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "astraea-a72fd07fd2",
+        "carrier": "hyperion"
+      }
+    ],
+    "hyperion": [
+      {
+        "yield": 1,
+        "need": {
+          "maxor_wand": 6,
+          "frozen_frag": 64,
+          "frozen_core": 2,
+          "necron_blade": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "craft",
+        "text": "craft: 6× Storm's Wand, 64× Frozen Fragment, 2× Frozen Core, 1× Necron's Blade (Unrefined)",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "hyperion-f368798ad5"
+      },
+      {
+        "yield": 1,
+        "need": {
+          "maxor_wand": 8,
+          "valkyrie": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "conversion",
+        "text": "conversion: 8× Storm's Wand, 1× Valkyrie",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "hyperion-94bf66db00",
+        "carrier": "valkyrie"
+      },
+      {
+        "yield": 1,
+        "need": {
+          "maxor_wand": 8,
+          "scylla": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "conversion",
+        "text": "conversion: 8× Storm's Wand, 1× Scylla",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "hyperion-5495efc093",
+        "carrier": "scylla"
+      },
+      {
+        "yield": 1,
+        "need": {
+          "maxor_wand": 8,
+          "astraea": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "conversion",
+        "text": "conversion: 8× Storm's Wand, 1× Astraea",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "hyperion-55e360d4ad",
+        "carrier": "astraea"
+      }
+    ],
+    "valkyrie": [
+      {
+        "yield": 1,
+        "need": {
+          "necron_aegis": 6,
+          "shard_of_the_shredded": 2,
+          "warden_heart": 2,
+          "necron_blade": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "craft",
+        "text": "craft: 6× Necron's Aegis, 2× Shard Of The Shredded, 2× Warden Heart, 1× Necron's Blade (Unrefined)",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "valkyrie-0aead2b3b3"
+      },
+      {
+        "yield": 1,
+        "need": {
+          "necron_aegis": 8,
+          "scylla": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "conversion",
+        "text": "conversion: 8× Necron's Aegis, 1× Scylla",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "valkyrie-072f780254",
+        "carrier": "scylla"
+      },
+      {
+        "yield": 1,
+        "need": {
+          "necron_aegis": 8,
+          "astraea": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "conversion",
+        "text": "conversion: 8× Necron's Aegis, 1× Astraea",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "valkyrie-b9dd854261",
+        "carrier": "astraea"
+      },
+      {
+        "yield": 1,
+        "need": {
+          "necron_aegis": 8,
+          "hyperion": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "conversion",
+        "text": "conversion: 8× Necron's Aegis, 1× Hyperion",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "valkyrie-67eda28626",
+        "carrier": "hyperion"
+      }
+    ],
+    "scylla": [
+      {
+        "yield": 1,
+        "need": {
+          "maxors_wand": 6,
+          "void_upgrade_stone": 2,
+          "judgement_core": 2,
+          "necron_blade": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "craft",
+        "text": "craft: 6× Maxor's Wand, 2× Void Upgrade Stone, 2× Judgement Core, 1× Necron's Blade (Unrefined)",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "scylla-a985205ba0"
+      },
+      {
+        "yield": 1,
+        "need": {
+          "maxors_wand": 8,
+          "valkyrie": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "conversion",
+        "text": "conversion: 8× Maxor's Wand, 1× Valkyrie",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "scylla-b677c71e93",
+        "carrier": "valkyrie"
+      },
+      {
+        "yield": 1,
+        "need": {
+          "maxors_wand": 8,
+          "astraea": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "conversion",
+        "text": "conversion: 8× Maxor's Wand, 1× Astraea",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "scylla-357a0e0b66",
+        "carrier": "astraea"
+      },
+      {
+        "yield": 1,
+        "need": {
+          "maxors_wand": 8,
+          "hyperion": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "conversion",
+        "text": "conversion: 8× Maxor's Wand, 1× Hyperion",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "scylla-9e9efafaca",
+        "carrier": "hyperion"
+      }
+    ],
+    "rose_relic": [
+      {
+        "yield": 1,
+        "need": {
+          "tier_boost_core": 4,
+          "endstone_rose_bush": 8,
+          "rose_artifact": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "craft",
+        "text": "craft: 4× Tier Boost Core, 8× Endstone Rose Bush, 1× Rose Artifact",
+        "source": "https://dragsim.co/data/wiki/content-f92824370db84529.json",
+        "wiki_id": "rose_relic-7696e7d0cd"
+      }
+    ],
+    "witherbound_charm": [
+      {
+        "yield": 1,
+        "need": {
+          "wither_catalyst": 16,
+          "withered_orb": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "craft",
+        "text": "craft: 16× Wither Catalyst, 1× Withered Orb",
+        "source": "Observed in-game recipe scan, 2026-11-15"
+      }
+    ],
+    "wither_relic": [
+      {
+        "yield": 1,
+        "need": {
+          "withered_orb": 2,
+          "wither_catalyst": 16,
+          "wither_artifact": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "craft",
+        "text": "craft: 2× Withered Orb, 16× Wither Catalyst, 1× Wither Artifact",
+        "source": "Observed in-game recipe scan, 2026-11-15"
+      }
+    ],
+    "glacial_urn": [
+      {
+        "yield": 1,
+        "need": {
+          "frozen_frag": 140,
+          "frozen_core": 1,
+          "frozen_urn": 1
+        },
+        "coins": 0,
+        "missing": [],
+        "kind": "craft",
+        "text": "craft: 140× Frozen Fragment, 1× Frozen Core, 1× Frozen Urn",
+        "source": "Observed in-game recipe scan, 2026-11-15"
+      }
+    ]
+  }
+}

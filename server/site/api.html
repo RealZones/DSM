@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DSM API</title>
+<meta name="description" content="Free Dragsim auction house and bazaar prices.">
+<style>
+  :root { --bg:#17151c; --deep:#131118; --card:#1f1c26; --raised:#2d2836; --line2:#3d3748; --text:#ece9f1; --soft:#c3bdcd;
+          --muted:#a39dae; --accent:#9a7fd1; --link:#b9a2ec; --cream:#e6dfae; --good:#6fd08c; --bad:#ef7d7d; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.6 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+  nav { background: var(--deep); border-right: 1px solid var(--raised); padding: 22px 18px; position: sticky; top: 0; height: 100vh; }
+  nav .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; margin-bottom: 22px; }
+  nav h4 { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 18px 0 6px; }
+  nav a { display: block; color: var(--soft); text-decoration: none; padding: 3px 0; font-size: 14px; }
+  nav a code { color: var(--link); }
+  main { padding: 32px 44px 80px; max-width: 980px; }
+  .draft { display: inline-block; background: rgba(230, 223, 174, .12); color: var(--cream); border: 1px solid rgba(230, 223, 174, .3);
+           border-radius: 999px; padding: 2px 12px; font-size: 12px; font-weight: 600; margin-bottom: 10px; }
+  h1 { font-size: 32px; margin: 0 0 6px; }
+  h2 { font-size: 22px; margin: 40px 0 10px; padding-top: 6px; border-top: 1px solid var(--raised); }
+  h3 { font-size: 16px; margin: 22px 0 8px; }
+  p, li { color: var(--soft); }
+  a { color: var(--link); }
+  code { font-family: ui-monospace, Consolas, monospace; font-size: 13px; background: var(--card); padding: 1px 6px; border-radius: 4px; color: var(--text); }
+  pre { background: var(--deep); border: 1px solid var(--raised); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 8px 0 14px; }
+  pre code { background: none; padding: 0; font-size: 12.5px; line-height: 1.55; }
+  .k { color: var(--link); } .s { color: var(--cream); } .n { color: var(--good); }
+  .ep { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--raised); border-radius: 8px; padding: 10px 14px; margin: 14px 0 6px; }
+  .ep .m { background: var(--accent); color: #15121b; font-weight: 700; font-size: 12px; border-radius: 5px; padding: 2px 8px; }
+  .ep code { background: none; font-size: 14px; }
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 12px; font-size: 14px; }
+  th { text-align: left; color: var(--muted); font-weight: 500; border-bottom: 1px solid var(--raised); padding: 6px 8px; }
+  td { border-bottom: 1px solid var(--raised); padding: 6px 8px; color: var(--soft); vertical-align: top; }
+  td:first-child code { color: var(--link); }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0; }
+  .card { background: var(--card); border: 1px solid var(--raised); border-radius: 8px; padding: 12px 14px; }
+  .card b { display: block; font-size: 20px; color: var(--text); }
+  .card span { color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <div class="brand">
+    <svg viewBox="0 0 36 36" width="30" height="30"><defs><radialGradient id="g" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#9a7fd1" stop-opacity=".55"/><stop offset="1" stop-color="#9a7fd1" stop-opacity="0"/></radialGradient></defs><circle cx="18" cy="18" r="18" fill="url(#g)"/><path fill="#e6dfae" d="M18 5 30 11.5v13L18 31 6 24.5v-13z"/><path fill="#bfb781" d="M18 18v13L6 24.5v-13z"/><path fill="#f3eecb" d="M18 18 6 11.5 18 5l12 6.5z"/></svg>
+    DSM API
+  </div>
+  <a href="/market/link/">&larr; Back to DSM</a>
+  <h4>Start</h4>
+  <a href="#intro">Overview</a>
+  <a href="#limits">Limits</a>
+  <a href="#errors">Errors</a>
+  <h4>Items</h4>
+  <a href="#search"><code>/search</code></a>
+  <a href="#item"><code>/item/{id}</code></a>
+  <a href="#history"><code>/item/{id}/history</code></a>
+  <a href="#sold"><code>/item/{id}/sold</code></a>
+  <a href="#active"><code>/item/{id}/active</code></a>
+  <a href="#prices"><code>/prices</code></a>
+  <h4>Bazaar</h4>
+  <a href="#bazaar"><code>/bazaar</code></a>
+  <h4>Service</h4>
+  <a href="#status"><code>/status</code></a>
+</nav>
+
+<main>
+  <h1 id="intro">DSM API</h1>
+  <p>Free Dragsim auction house and bazaar prices, worked out from every sale. No key and no sign-up. If you show our numbers, link back to the item's page on DSM.</p>
+
+  <div class="cards">
+    <div class="card"><b>No key</b><span>Send a User-Agent that names your project.</span></div>
+    <div class="card"><b>100 / min</b><span>per IP, with bursts of up to 30.</span></div>
+    <div class="card"><b>JSON</b><span>Coins as numbers, times in ms since 1970. Open to browsers (CORS).</span></div>
+  </div>
+
+  <p>Base URL:</p>
+  <pre><code>https://dsmnet.xyz/api/v1</code></pre>
+  <pre><code>curl -A "my-dragsim-tool/1.0" https://dsmnet.xyz/api/v1/item/bonemerang</code></pre>
+
+  <h2 id="limits">Limits</h2>
+  <p>Each IP gets 100 requests a minute, and can burst up to 30 at once. Past that you get <code>429</code> with a <code>Retry-After</code> header in seconds. Answers are cached for 30 seconds and prices update about that often, so polling faster gets you nothing new. Requests without a User-Agent get <code>400</code>.</p>
+
+  <h2 id="errors">Errors</h2>
+  <table>
+    <tr><th>Status</th><th>Meaning</th></tr>
+    <tr><td><code>400</code></td><td>A parameter is wrong, or there is no User-Agent. The body says which.</td></tr>
+    <tr><td><code>404</code></td><td>No item with that id.</td></tr>
+    <tr><td><code>429</code></td><td>Slow down. Wait <code>Retry-After</code> seconds.</td></tr>
+    <tr><td><code>503</code></td><td>Prices are rebuilding after a restart, usually under 30 seconds.</td></tr>
+  </table>
+  <pre><code>{ <span class="k">"error"</span>: <span class="s">"Unknown item: bonemerangg"</span> }</code></pre>
+
+  <h2 id="search">Search</h2>
+  <div class="ep"><span class="m">GET</span><code>/search?q={text}</code></div>
+  <p>Items whose name matches, best first, up to 12. Use the <code>entry</code> as the id everywhere else.</p>
+  <pre><code>{ <span class="k">"items"</span>: [
+    { <span class="k">"entry"</span>: <span class="s">"hyper_cleaver"</span>, <span class="k">"name"</span>: <span class="s">"Hyper Cleaver"</span>, <span class="k">"tier"</span>: <span class="s">"EPIC"</span> },
+    { <span class="k">"entry"</span>: <span class="s">"hyperion"</span>, <span class="k">"name"</span>: <span class="s">"Hyperion"</span>, <span class="k">"tier"</span>: <span class="s">"LEGENDARY"</span> }
+] }</code></pre>
+
+  <h2 id="item">Item price</h2>
+  <div class="ep"><span class="m">GET</span><code>/item/{id}</code></div>
+  <p>What a plain copy is worth now, and the numbers behind it. For a bazaar product, <code>bazaar</code> holds the live order book's best <code>bid</code> and <code>ask</code>; otherwise it is <code>null</code>.</p>
+  <pre><code>{
+  <span class="k">"entry"</span>: <span class="s">"bonemerang"</span>, <span class="k">"name"</span>: <span class="s">"Bonemerang"</span>, <span class="k">"tier"</span>: <span class="s">"LEGENDARY"</span>, <span class="k">"npc"</span>: <span class="n">20000000</span>,
+  <span class="k">"estimate"</span>: {
+    <span class="k">"value"</span>: <span class="n">500000000</span>,
+    <span class="k">"median"</span>: <span class="n">410000000</span>,
+    <span class="k">"lbin"</span>: <span class="n">536000000</span>,  <span class="k">"lbin_live"</span>: <span class="n">5</span>,
+    <span class="k">"last_sale"</span>: { <span class="k">"price"</span>: <span class="n">500000000</span>, <span class="k">"at"</span>: <span class="n">1794767588031</span> },
+    <span class="k">"volume"</span>: <span class="n">2.67</span>,
+    <span class="k">"time_to_sell"</span>: <span class="n">78</span>,
+    <span class="k">"insta_sell"</span>: <span class="n">450000000</span>,
+    <span class="k">"confidence"</span>: <span class="s">"high"</span>
+  }
+}</code></pre>
+  <table>
+    <tr><th>Field</th><th>What it is</th></tr>
+    <tr><td><code>value</code></td><td>Our best price for this copy. Use this one.</td></tr>
+    <tr><td><code>median</code></td><td>Median of recent sales of copies like this. Careful, runs low.</td></tr>
+    <tr><td><code>lbin</code></td><td>Cheapest live BIN of this kind. <code>lbin_live</code> is how many are up.</td></tr>
+    <tr><td><code>volume</code></td><td>Sales per day.</td></tr>
+    <tr><td><code>time_to_sell</code></td><td>Usual minutes from listing to sale.</td></tr>
+    <tr><td><code>insta_sell</code></td><td>A price that sells quickly.</td></tr>
+    <tr><td><code>confidence</code></td><td><code>high</code> or <code>low</code>. Low means few sales; treat it as a guess.</td></tr>
+  </table>
+  <h3>Filters</h3>
+  <p><code>/history</code>, <code>/sold</code> and <code>/active</code> take these to narrow to copies like yours, for example <code>?stars=5&amp;recomb=1</code>: <code>rarity</code>, <code>stars</code>, <code>reforge</code>, <code>recomb</code>, <code>hpb</code>, <code>ghpb</code>, <code>aow</code>, <code>sync</code>, <code>enrich</code>, <code>dye</code>, <code>skin</code>, <code>pet_level</code>, <code>pet_item</code>, <code>pet_skin</code>, <code>engine</code>, <code>tank</code>, <code>module</code>. A Tier-Boosted pet keeps its own id with a higher <code>rarity</code>, so pass <code>rarity</code> to keep it apart from plain ones.</p>
+
+  <h2 id="history">Price history</h2>
+  <div class="ep"><span class="m">GET</span><code>/item/{id}/history?range=day|week|month|all</code></div>
+  <p>One row per hour (<code>day</code>) or per day (the rest). Takes the same filters.</p>
+  <pre><code>{ <span class="k">"range"</span>: <span class="s">"month"</span>, <span class="k">"bazaar"</span>: <span class="n">false</span>, <span class="k">"rows"</span>: [
+    { <span class="k">"t"</span>: <span class="n">1794614400000</span>, <span class="k">"avg"</span>: <span class="n">682375000</span>, <span class="k">"min"</span>: <span class="n">400000000</span>, <span class="k">"max"</span>: <span class="n">1250000000</span>, <span class="k">"vol"</span>: <span class="n">16</span> },
+    { <span class="k">"t"</span>: <span class="n">1794700800000</span>, <span class="k">"avg"</span>: <span class="n">511111111</span>, <span class="k">"min"</span>: <span class="n">350000000</span>, <span class="k">"max"</span>: <span class="n">1500000000</span>, <span class="k">"vol"</span>: <span class="n">9</span> }
+] }</code></pre>
+
+  <h2 id="sold">Recent sales</h2>
+  <div class="ep"><span class="m">GET</span><code>/item/{id}/sold?limit=24</code></div>
+  <p>Newest first, up to 100. <code>parts</code> lists what was on the copy.</p>
+  <pre><code>{ <span class="k">"auctions"</span>: [
+    { <span class="k">"id"</span>: <span class="s">"1189c59d-…"</span>, <span class="k">"unit"</span>: <span class="n">1500000000</span>, <span class="k">"count"</span>: <span class="n">1</span>, <span class="k">"seller"</span>: <span class="s">"Steve"</span>, <span class="k">"buyer"</span>: <span class="s">"Alex"</span>,
+      <span class="k">"at"</span>: <span class="n">1794782029699</span>, <span class="k">"parts"</span>: [<span class="s">"5 stars"</span>, <span class="s">"10 books"</span>] }
+] }</code></pre>
+
+  <h2 id="active">Live listings</h2>
+  <div class="ep"><span class="m">GET</span><code>/item/{id}/active</code></div>
+  <p>Auctions up right now, cheapest first, up to 60, with <code>end</code> as when each one closes.</p>
+
+  <h2 id="prices">Many prices at once</h2>
+  <div class="ep"><span class="m">GET</span><code>/prices?ids=bonemerang,crypt_cache_item</code></div>
+  <p>Up to 50 ids in one request, counted as one request. Ids DSM doesn't know are left out of the answer. Any number can be <code>null</code> when there is nothing to go on.</p>
+  <pre><code>{ <span class="k">"bonemerang"</span>: { <span class="k">"now"</span>: <span class="n">536000000</span>, <span class="k">"recent"</span>: <span class="n">500000000</span>, <span class="k">"monthly"</span>: <span class="n">470000000</span>, <span class="k">"volume"</span>: <span class="n">2.67</span>, <span class="k">"bazaar"</span>: <span class="n">false</span> } }</code></pre>
+  <table>
+    <tr><td><code>now</code></td><td>Lowest BIN, or the bazaar's buy price.</td></tr>
+    <tr><td><code>recent</code></td><td>Median of clean copies over two days (fourteen when two days hold fewer than three sales).</td></tr>
+    <tr><td><code>monthly</code></td><td>Middle of the last month's daily averages.</td></tr>
+  </table>
+
+  <h2 id="bazaar">Bazaar</h2>
+  <div class="ep"><span class="m">GET</span><code>/bazaar</code></div>
+  <p>Every product. Dragsim doesn't publish bazaar sale prices, so DSM reads them off the order book every 30 seconds. <code>bought</code> is sell offers that filled; <code>sold</code> is buy orders that filled.</p>
+  <pre><code>{ <span class="k">"products"</span>: [
+    { <span class="k">"entry"</span>: <span class="s">"crypt_cache_item"</span>, <span class="k">"name"</span>: <span class="s">"Crypt Cache"</span>,
+      <span class="k">"ask"</span>: <span class="n">87999999</span>, <span class="k">"bid"</span>: <span class="n">41000001</span>, <span class="k">"price"</span>: <span class="n">74444442</span>,
+      <span class="k">"bought"</span>: { <span class="k">"amount"</span>: <span class="n">1733</span>, <span class="k">"average"</span>: <span class="n">72608749</span> },
+      <span class="k">"sold"</span>:   { <span class="k">"amount"</span>: <span class="n">19</span>,   <span class="k">"average"</span>: <span class="n">41578950</span> } }
+] }</code></pre>
+
+  <h2 id="status">Status</h2>
+  <div class="ep"><span class="m">GET</span><code>/status</code></div>
+  <p>Whether prices are current: <code>ok</code> is false when the last update is over five minutes old.</p>
+  <pre><code>{ <span class="k">"market_time"</span>: <span class="n">1794828023749</span>, <span class="k">"listings"</span>: <span class="n">943</span>, <span class="k">"ok"</span>: <span class="n">true</span> }</code></pre>
+</main>
+</div>
+</body>
+</html>

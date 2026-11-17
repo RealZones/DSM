@@ -1,0 +1,19 @@
+DSM (Dragsim Market)
+Copyright (C) 2026 RealZones
+
+This program is free software: you can redistribute it and/or modify it under the terms of the
+GNU Affero General Public License as published by the Free Software Foundation, either version 3
+of the License, or (at your option) any later version. See LICENSE.
+
+Third-party work
+----------------
+
+Parts of server/market/engine.py (the median, clean-price, similarity and quick-sale rules) are
+adapted from Coflnet's SkySniper, https://github.com/Coflnet/SkySniper, licensed under the
+GNU Affero General Public License v3.0. Methods taken from it keep their original names in
+comments (GetMedian, GetCleanItemPrice, GetEstimatedMedian, SimilarityByMarketPrice,
+InstaSellPrice) so each adapted rule can be traced to its source. The rules were rewritten in
+Python and changed for Dragsim's items, stack sizes, fees and market.
+
+The hover price lines (server/market/lore.py) follow the format of Coflnet's SkyApi mod
+descriptions, https://github.com/Coflnet/SkyApi (AGPL-3.0).

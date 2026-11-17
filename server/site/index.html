@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex,nofollow">
+<title>DSM - Dragsim Market</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg viewBox="0 0 36 36"%3E%3Cdefs%3E%3CradialGradient id="endGlow" cx="50%25" cy="50%25" r="60%25"%3E%3Cstop offset="0" stop-color="#9a7fd1" stop-opacity=".55"/%3E%3Cstop offset="1" stop-color="#9a7fd1" stop-opacity="0"/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx="18" cy="18" r="18" fill="url%28#endGlow%29"/%3E%3Cpath fill="#e6dfae" d="M18 5 30 11.5v13L18 31 6 24.5v-13z"/%3E%3Cpath fill="#bfb781" d="M18 18v13L6 24.5v-13z"/%3E%3Cpath fill="#f3eecb" d="M18 18 6 11.5 18 5l12 6.5z"/%3E%3Ccircle cx="12" cy="22" r="1.3" fill="#a59d6b"/%3E%3Ccircle cx="23" cy="24" r="1.1" fill="#d3cb98"/%3E%3Ccircle cx="19" cy="11" r="1.1" fill="#d6cf9f"/%3E%3C/svg%3E">
+<link rel="stylesheet" href="bootstrap-dark.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav id="rail" aria-label="Main"></nav>
+<div id="shell">
+  <div id="bar">
+    <button id="burger" aria-label="Menu"><svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></button>
+    <div class="search">
+      <input id="q" type="search" placeholder="Search player/item" autocomplete="off" spellcheck="false" aria-label="Search player or item">
+      <div id="results" hidden></div>
+    </div>
+  </div>
+  <main id="page"><p class="text-muted">Loading...</p></main>
+  <footer id="foot"></footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version '1.16-SNAPSHOT'
+}
+
+group = 'com.endsight.market'
+version = '0.2.4'
+
+dependencies {
+    minecraft 'com.mojang:minecraft:26.1.2'
+    implementation 'net.fabricmc:fabric-loader:0.19.2'
+    implementation 'net.fabricmc.fabric-api:fabric-api:0.155.3+26.1.2'
+}
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') { expand version: project.version }
+}
+
+// Same commit, same bytes: no file times and a fixed order inside the jar, so anyone can build a
+// release's commit themselves and get the SHA-256 published beside it.
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 25
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+tasks.register('marketChecks', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.endsight.market.MarketChecks'
+}
+tasks.named('check') { dependsOn 'marketChecks' }
+// Checks are executable Java fixtures; marketChecks propagates assertions to the build.
+tasks.named('test') { failOnNoDiscoveredTests = false }
