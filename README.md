@@ -54,7 +54,9 @@ Requires Minecraft 26.1.2, Fabric Loader 0.19.2 or newer, Fabric API and Java 25
 3. Enter the code it shows on [dsmnet.xyz](https://dsmnet.xyz/). Your Notifier, flips and alerts
    are now yours.
 
-Trade uploads are off until you turn them on with `/market trades on`. More in
+Linking also turns on trade tracking, which builds your flip history: your completed trades and
+your auction, upgrade, forge and bazaar messages go to your own DSM history. There is no off
+switch; to stop, remove the mod or delete `config/dragsim-market/account.properties`. More in
 [`mod/README.md`](mod/README.md).
 
 ### Check what you run
